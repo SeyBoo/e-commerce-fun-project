@@ -66,15 +66,15 @@ const Nav: FunctionComponent = () => {
               },
               {
                 children: <Link href="#">Deals</Link>,
-                activeStyle: true,
+                isActiveStyle: true,
               },
               {
                 children: <Link href="#">What&apos;s new</Link>,
-                activeStyle: true,
+                isActiveStyle: true,
               },
               {
                 children: <Link href="#">Delivery</Link>,
-                activeStyle: true,
+                isActiveStyle: true,
               },
             ],
           },
@@ -90,7 +90,7 @@ const Nav: FunctionComponent = () => {
                     Account
                   </Link>
                 ),
-                activeStyle: true,
+                isActiveStyle: true,
               },
               {
                 children: (
@@ -102,7 +102,7 @@ const Nav: FunctionComponent = () => {
                     Cart
                   </Link>
                 ),
-                activeStyle: true,
+                isActiveStyle: true,
               },
             ],
           },

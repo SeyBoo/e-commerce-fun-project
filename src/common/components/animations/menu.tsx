@@ -1,31 +1,30 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, PropsWithChildren } from "react";
 import { Menu } from "@headlessui/react";
 import GenericTransition from "./transitions";
 import BurgerMenuIcon from "../../assets/burger-menu-icon.svg";
 import CloseMenuIcon from "../../assets/close.svg";
 import Image from "next/image";
-
-const MenuItem: FunctionComponent<MenuItemProps> = ({
-  children,
-  activeStyle,
-}) => {
-  const defaultStyle =
-    "text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm";
-  const activeTailwindStyle =
-    "hover:bg-violet-500 hover:text-white " + defaultStyle;
-
-  return (
-    <div className={activeStyle ? activeTailwindStyle : defaultStyle}>
-      {children}
-    </div>
-  );
-};
-
 interface MenuItemProps {
-  activeStyle?: boolean;
+  isActiveStyle?: boolean;
   children: React.ReactNode;
 }
 
+const MenuItem: FunctionComponent<MenuItemProps> = ({
+  children,
+  isActiveStyle,
+}) => {
+  const defaultStyle =
+    "text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm";
+  const activeStyle = "hover:bg-violet-500 hover:text-white " + defaultStyle;
+
+  return (
+    <div className={isActiveStyle ? activeStyle : defaultStyle}>{children}</div>
+  );
+};
+
+const SectionWrapper: FunctionComponent<PropsWithChildren> = ({ children }) => {
+  return <div className="px-1 py-1 ">{children}</div>;
+};
 interface SectionDropDown {
   items: MenuItemProps[];
 }
@@ -49,13 +48,16 @@ const MenuDropDown: FunctionComponent<MenuDropDownProps> = ({ sections }) => {
           <GenericTransition>
             <Menu.Items className="absolute w-screen right-[-20px] mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
               {sections.map((section, sectionIndex) => (
-                <div className="px-1 py-1 " key={sectionIndex}>
+                <SectionWrapper key={sectionIndex}>
                   {section.items.map((item, itemIndex) => (
-                    <MenuItem key={itemIndex} activeStyle={item.activeStyle}>
+                    <MenuItem
+                      key={itemIndex}
+                      isActiveStyle={item.isActiveStyle}
+                    >
                       {item.children}
                     </MenuItem>
                   ))}
-                </div>
+                </SectionWrapper>
               ))}
             </Menu.Items>
           </GenericTransition>
