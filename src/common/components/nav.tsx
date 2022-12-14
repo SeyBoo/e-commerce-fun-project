@@ -10,6 +10,7 @@ import CartIcon from "../assets/cart.svg";
 import Logo from "../assets/logo.svg";
 import PopOverPanel, { PanelItem } from "./pop-over-panel";
 import SearchProduct from "../../module/products/components/searchProduct";
+import MenuDropDown from "./animations/menu";
 
 const panelItems: PanelItem[] = [
   {
@@ -48,7 +49,65 @@ const Nav: FunctionComponent = () => {
           <Link href="#">Delivery</Link>
         </div>
       </div>
-      <div className="flex items-center gap-6">
+      <MenuDropDown
+        sections={[
+          {
+            items: [
+              {
+                children: <SearchProduct />,
+              },
+              {
+                children: (
+                  <PopOverPanel
+                    triggerButton="Categories"
+                    panelItems={panelItems}
+                  />
+                ),
+              },
+              {
+                children: <Link href="#">Deals</Link>,
+                activeStyle: true,
+              },
+              {
+                children: <Link href="#">What&apos;s new</Link>,
+                activeStyle: true,
+              },
+              {
+                children: <Link href="#">Delivery</Link>,
+                activeStyle: true,
+              },
+            ],
+          },
+          {
+            items: [
+              {
+                children: (
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-1 font-medium"
+                  >
+                    <Image src={AccountIcon} alt="" width={30} />
+                    Account
+                  </Link>
+                ),
+                activeStyle: true,
+              },
+              {
+                children: (
+                  <Link
+                    href="/cart"
+                    className="flex items-center gap-1 font-medium"
+                  >
+                    <Image src={CartIcon} alt="" width={30} />
+                    Cart
+                  </Link>
+                ),
+                activeStyle: true,
+              },
+            ],
+          },
+        ]}
+      />
         <Link href="/login" className="flex items-center gap-1 font-medium">
           <Image src={AccountIcon} alt="" width={30} />
           Account
