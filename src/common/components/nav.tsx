@@ -108,6 +108,10 @@ const Nav: FunctionComponent = () => {
           },
         ]}
       />
+      <div className="hidden md:flex items-center gap-6 w-max">
+        <div className="w-[350px]">
+          <SearchProduct />
+        </div>
         <Link href="/login" className="flex items-center gap-1 font-medium">
           <Image src={AccountIcon} alt="" width={30} />
           Account
