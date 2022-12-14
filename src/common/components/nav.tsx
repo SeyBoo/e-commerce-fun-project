@@ -114,11 +114,11 @@ const Nav: FunctionComponent = () => {
         </div>
         <Link href="/login" className="flex items-center gap-1 font-medium">
           <Image src={AccountIcon} alt="" width={30} />
-          Account
+          <p className="hidden xl:block">Account</p>
         </Link>
         <Link href="/cart" className="flex items-center gap-1 font-medium">
           <Image src={CartIcon} alt="" width={30} />
-          Cart
+          <p className="hidden xl:block">Cart</p>
         </Link>
       </div>
     </nav>
