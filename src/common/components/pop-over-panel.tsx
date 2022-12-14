@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Fragment, FunctionComponent } from "react";
 import DownIcon from "../assets/expand-down.svg";
 import { StaticImageData } from "next/image";
+import GenericTransition from "./animations/transitions";
 
 export interface PanelItem {
   name: string;
@@ -45,15 +46,7 @@ const PopOverPanel: FunctionComponent<PopOverProps> = ({
             {triggerButton}
             <Image src={DownIcon} alt="" width={20} />
           </Popover.Button>
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-200"
-            enterFrom="opacity-0 translate-y-1"
-            enterTo="opacity-100 translate-y-0"
-            leave="transition ease-in duration-150"
-            leaveFrom="opacity-100 translate-y-0"
-            leaveTo="opacity-0 translate-y-1"
-          >
+          <GenericTransition>
             <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 lg:max-w-3xl">
               <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="relative grid gap-8 bg-gray-50 p-7 lg:grid-cols-2">
@@ -68,7 +61,7 @@ const PopOverPanel: FunctionComponent<PopOverProps> = ({
                 </div>
               </div>
             </Popover.Panel>
-          </Transition>
+          </GenericTransition>
         </>
       )}
     </Popover>

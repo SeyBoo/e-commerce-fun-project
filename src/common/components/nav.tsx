@@ -9,6 +9,7 @@ import AccountIcon from "../assets/account.svg";
 import CartIcon from "../assets/cart.svg";
 import Logo from "../assets/logo.svg";
 import PopOverPanel, { PanelItem } from "./pop-over-panel";
+import SearchProduct from "../../module/products/components/searchProduct";
 
 const panelItems: PanelItem[] = [
   {
@@ -35,15 +36,17 @@ const panelItems: PanelItem[] = [
 
 const Nav: FunctionComponent = () => {
   return (
-    <nav className="flex items-center justify-between p-5 px-20">
-      <div className="flex gap-20 items-center">
+    <nav className="flex items-center justify-between p-5">
+      <div className="flex xl:gap-20 gap-10 items-center">
         <Link href="/">
           <Image src={Logo} alt="logo" width={225} />
         </Link>
-        <PopOverPanel
-          triggerButton={<span className="font-medium">Categories</span>}
-          panelItems={panelItems}
-        />
+        <div className="hidden md:flex gap-6 font-medium ">
+          <PopOverPanel triggerButton="Categories" panelItems={panelItems} />
+          <Link href="#">Deals</Link>
+          <Link href="#">What&apos;s news</Link>
+          <Link href="#">Delivery</Link>
+        </div>
       </div>
       <div className="flex items-center gap-6">
         <Link href="/login" className="flex items-center gap-1 font-medium">
