@@ -22,4 +22,23 @@ export const useGetAllProducts = () => {
   });
 };
 
+export const useGetProduct = (id: string, params: { enabled: boolean }) => {
+  const setSnackBar = useSnack();
+
+  const getProduct = async (): Promise<Product> => {
+    const data: Product = await getFromApi(
+      ProductsApiRoutes.SINGLE_PRODUCT + id
+    );
+    return data;
+  };
+
+  return useQuery([ProductsApiRoutes.SINGLE_PRODUCT], getProduct, {
+    onError() {
+      setSnackBar({
+        type: "error",
+        title: "Error couldn't fetch product.",
+      });
+    },
+    enabled: params.enabled,
+  });
 };
