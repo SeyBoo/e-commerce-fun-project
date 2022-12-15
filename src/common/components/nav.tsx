@@ -9,7 +9,7 @@ import AccountIcon from "../assets/account.svg";
 import CartIcon from "../assets/cart.svg";
 import Logo from "../assets/logo.svg";
 import PopOverPanel, { PanelItem } from "./pop-over-panel";
-import SearchProduct from "../../module/products/components/searchProduct";
+import SearchProducts from "../../module/products/components/searchProducts";
 import MenuDropDown from "./animations/menu";
 
 const panelItems: PanelItem[] = [
@@ -54,7 +54,7 @@ const Nav: FunctionComponent = () => {
           {
             items: [
               {
-                children: <SearchProduct />,
+                children: <SearchProducts />,
               },
               {
                 children: (
@@ -110,7 +110,7 @@ const Nav: FunctionComponent = () => {
       />
       <div className="hidden md:flex items-center gap-6 w-max">
         <div className="w-[350px]">
-          <SearchProduct />
+          <SearchProducts />
         </div>
         <Link href="/login" className="flex items-center gap-1 font-medium">
           <Image src={AccountIcon} alt="" width={30} />
