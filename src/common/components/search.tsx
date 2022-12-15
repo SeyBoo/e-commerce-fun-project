@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
+import CalculateAnimationDelay from "../utils/calculateAnimationDelay";
 import useOutsideAlerter from "../utils/useOutsideAlerter";
+import { FromTheTopAnimation } from "./animations/fromTheTopAnimation";
 
 interface SearchProps<T> {
   placeholder: string;
@@ -25,7 +27,11 @@ function Search<T>({
   const HandleRenderSearchedProducts = () => {
     return (
       <div className="relative flex flex-col gap-4 z-50 bg-white shadow rounded-md max-w-md max-h-80 overflow-y-scroll">
-        {filteredData?.map((item) => renderSearchItem(item))}
+        {filteredData?.map((item, index) => (
+          <FromTheTopAnimation key={index} delay={CalculateAnimationDelay(index)}>
+            {renderSearchItem(item)}
+          </FromTheTopAnimation>
+        ))}
       </div>
     );
   };
