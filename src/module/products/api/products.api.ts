@@ -12,5 +12,14 @@ export const useGetAllProducts = () => {
     return data;
   };
 
-  return useQuery([ProductsApiRoutes.ALL_PRODUCTS], getAllProducts);
+  return useQuery([ProductsApiRoutes.ALL_PRODUCTS], getAllProducts, {
+    onError() {
+      setSnackBar({
+        type: "error",
+        title: "Error couldn't fetch products.",
+      });
+    },
+  });
+};
+
 };
