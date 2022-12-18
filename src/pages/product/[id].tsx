@@ -4,7 +4,11 @@ import {
   GetStaticPropsContext,
   NextPage,
 } from "next";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useMemo, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
+import BaseLayout from "../../common/components/layouts/baseLayout";
 import {
   getProductPaths,
   prefetchProduct,
@@ -12,8 +16,74 @@ import {
 } from "../../module/products/api/products.api";
 
 const Product: NextPage = () => {
+  const { query } = useRouter();
+  const productId = query.id as string;
+  const [itemNumber, setItemNumber] = useState<number>(1);
 
-  return null;
+  const { data, status } = useGetProduct(productId, { enabled: !!productId });
+
+  const productLoading = useMemo(
+    () => status === "loading" || status === "idle",
+    [status]
+  );
+
+  const handleDecrementItemNumber = () => {
+    if (itemNumber > 1) {
+      setItemNumber(itemNumber - 1);
+    }
+  };
+
+  if (productLoading || !data) return <p>Loading</p>;
+
+  return (
+    <BaseLayout>
+      <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 max-w-7xl m-auto md:mt-20">
+        <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px]">
+          <Image src={data.image} alt={data.title} fill sizes="1" />
+        </div>
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <h2 className="uppercase text-[#2D472B] font-bold text-xl tracking-wider">
+              {data.category}
+            </h2>
+            <h1 className="text-3xl font-bold">{data.title}</h1>
+            <p className="text-gray-500">{data.description}</p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h3 className="text-4xl font-bold">${data.price}</h3>
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
+              <div className="flex items-center justify-between">
+                <button
+                  className="cursor-pointer text-[#2D472B] font-bold text-xl"
+                  onClick={() => handleDecrementItemNumber()}
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  className="text-center text-[#2D472B] font-bold text-xl w-16"
+                  onChange={(e) => setItemNumber(parseFloat(e.target.value))}
+                  value={itemNumber}
+                  min={1}
+                />
+                <button
+                  className="cursor-pointer text-[#2D472B] font-bold text-xl"
+                  onClick={() => setItemNumber(itemNumber + 1)}
+                >
+                  +
+                </button>
+              </div>
+              <div className="text-center">
+                <button className="bg-[#2D472B] text-white font-bold w-full p-3 rounded-lg">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </BaseLayout>
+  );
 };
 
 export default Product;
