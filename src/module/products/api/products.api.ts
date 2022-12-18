@@ -45,3 +45,14 @@ export const useGetProduct = (
     enabled: params.enabled,
   });
 };
+
+export const getProductPaths = async () => {
+  const data: ProductI[] = await getFromApi(ProductsApiRoutes.ALL_PRODUCTS, {
+    "Accept-Encoding": "gzip,deflate,compress",
+  });
+
+  return data.map((product) => ({
+    params: { id: JSON.stringify(product.id) },
+  }));
+};
+
