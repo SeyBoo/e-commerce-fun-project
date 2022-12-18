@@ -119,6 +119,10 @@ export const useSnack = (): (({
 }: useSnackProps) => void) => {
   const context = useContext(SnackBarContext);
 
+  if (!context) {
+    throw new Error("useSnack must be used within an SnackBarProvider");
+  }
+
   return context.useSnack;
 };
 
