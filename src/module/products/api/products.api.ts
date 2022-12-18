@@ -22,17 +22,20 @@ export const useGetAllProducts = (): UseQueryResult<ProductI[]> => {
   });
 };
 
-export const useGetProduct = (id: string, params: { enabled: boolean }) => {
+export const getProduct = async (id: string): Promise<ProductI> => {
+  const data: ProductI = await getFromApi(
+    ProductsApiRoutes.SINGLE_PRODUCT + id
+  );
+  return data;
+};
+
+export const useGetProduct = (
+  id: string,
+  params?: { enabled: boolean }
+): UseQueryResult<ProductI> => {
   const setSnackBar = useSnack();
 
-  const getProduct = async (): Promise<Product> => {
-    const data: Product = await getFromApi(
-      ProductsApiRoutes.SINGLE_PRODUCT + id
-    );
-    return data;
-  };
-
-  return useQuery([ProductsApiRoutes.SINGLE_PRODUCT], getProduct, {
+  return useQuery([ProductsApiRoutes.SINGLE_PRODUCT], () => getProduct(id), {
     onError() {
       setSnackBar({
         type: "error",
