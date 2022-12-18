@@ -7,8 +7,10 @@ const axiosInstance = axios.create({
 
 export const getFromApi = async (
   url: string,
-  params?: Record<string, unknown>
+  params?: Record<string, string>
 ) => {
-  const { data } = await axiosInstance.get(url, { params: params && {} });
+  const { data } = await axiosInstance.get(url, {
+    headers: params ? params : {},
+  });
   return data;
 };
