@@ -7,25 +7,24 @@ import {
 } from "react";
 
 type ComponentType = "error" | "information";
-
 interface useSnackProps {
   title: string;
   description?: string;
   type: ComponentType;
 }
 
-interface SnackBarContextProps {
+interface SnackBarContextActions {
   useSnack: ({ description, title, type }: useSnackProps) => void;
 }
 
-const SnackBarContext = createContext({} as SnackBarContextProps);
+const SnackBarContext = createContext({} as SnackBarContextActions);
 
 interface ComponentProps {
   title: string;
   description: string;
 }
 
-const Information: FunctionComponent<ComponentProps> = ({
+const InformationComponent: FunctionComponent<ComponentProps> = ({
   title,
   description,
 }) => {
@@ -53,7 +52,10 @@ const Information: FunctionComponent<ComponentProps> = ({
   );
 };
 
-const Error: FunctionComponent<ComponentProps> = ({ title, description }) => {
+const ErrorComponent: FunctionComponent<ComponentProps> = ({
+  title,
+  description,
+}) => {
   return (
     <div
       className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
@@ -85,14 +87,17 @@ const SnackBarProvider: FunctionComponent<PropsWithChildren> = ({
 
     if (type === "information") {
       setComponent(
-        <Information
+        <InformationComponent
           description={description ? description : ""}
           title={title}
         />
       );
     } else {
       setComponent(
-        <Error description={description ? description : ""} title={title} />
+        <ErrorComponent
+          description={description ? description : ""}
+          title={title}
+        />
       );
     }
   };
