@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react";
 import Image from "next/image";
-import { Product } from "../../types/products.interface";
+import { ProductI } from "../../types/products.interface";
 import Link from "next/link";
 import Ratings from "../ratings";
 import { ZoomOnHover } from "../../../../common/components/animations/zoomInAnimation";
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductI;
 }
 
 const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {

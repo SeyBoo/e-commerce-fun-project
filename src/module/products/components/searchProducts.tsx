@@ -3,10 +3,10 @@ import Image from "next/image";
 import { FunctionComponent } from "react";
 import { useGetAllProducts } from "../api/products.api";
 import Search from "../../../common/components/search";
-import { Product } from "../types/products.interface";
+import { ProductI } from "../types/products.interface";
 import { ZoomOnHover } from "../../../common/components/animations/zoomInAnimation";
 
-const renderSearchItem = (value: Product) => {
+const renderSearchItem = (value: ProductI) => {
   return (
     <ZoomOnHover>
       <Link
@@ -28,10 +28,10 @@ const SearchProducts: FunctionComponent = () => {
   const { data } = useGetAllProducts();
 
   return (
-    <Search<Product>
+    <Search<ProductI>
       data={data ? data : []}
       placeholder="Search Products..."
-      renderSearchItem={(value: Product) => renderSearchItem(value)}
+      renderSearchItem={(value: ProductI) => renderSearchItem(value)}
       field="title"
     />
   );

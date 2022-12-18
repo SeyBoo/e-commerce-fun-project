@@ -1,14 +1,14 @@
-import { useQuery } from "react-query";
-import { Product } from "../types/products.interface";
+import { QueryClient, useQuery, UseQueryResult } from "react-query";
+import { ProductI } from "../types/products.interface";
 import { getFromApi } from "../../../common/api/config";
 import { ProductsApiRoutes } from "./products.enum";
 import { useSnack } from "../../../common/hooks/useSnackBar";
 
-export const useGetAllProducts = () => {
+export const useGetAllProducts = (): UseQueryResult<ProductI[]> => {
   const setSnackBar = useSnack();
 
-  const getAllProducts = async (): Promise<Product[]> => {
-    const data: Product[] = await getFromApi(ProductsApiRoutes.ALL_PRODUCTS);
+  const getAllProducts = async (): Promise<ProductI[]> => {
+    const data: ProductI[] = await getFromApi(ProductsApiRoutes.ALL_PRODUCTS);
     return data;
   };
 
