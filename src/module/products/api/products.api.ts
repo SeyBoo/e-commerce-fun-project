@@ -42,7 +42,7 @@ export const useGetProduct = (
         title: "Error couldn't fetch product.",
       });
     },
-    enabled: params.enabled,
+    enabled: params?.enabled,
   });
 };
 
