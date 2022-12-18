@@ -56,3 +56,13 @@ export const getProductPaths = async () => {
   }));
 };
 
+export const prefetchProduct = async (
+  queryClient: QueryClient,
+  id: string
+): Promise<unknown> => {
+  await queryClient.prefetchQuery(ProductsApiRoutes.SINGLE_PRODUCT, () =>
+    getProduct(id)
+  );
+
+  return await queryClient.getQueryData([ProductsApiRoutes.SINGLE_PRODUCT]);
+};
