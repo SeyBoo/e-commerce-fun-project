@@ -8,7 +8,7 @@ const ProductCardSkeleton: FunctionComponent = () => {
       <div className="shadow-md p-5 rounded-xl flex flex-col gap-3 items-center">
         <div>
           <div className="self-center p-8">
-            <div className="w-[200px] h-[200px] flex justify-center items-center bg-gray-300 rounded dark:bg-gray-700">
+            <div className="w-[200px] h-[200px]">
               <SkeletonImage />
             </div>
           </div>
