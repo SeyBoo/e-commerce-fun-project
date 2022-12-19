@@ -14,6 +14,40 @@ import {
   prefetchProduct,
   useGetProduct,
 } from "../../module/products/api/products.api";
+import SkeletonImage from "../../common/components/skeletons/skeleton-image";
+import TextSkeleton from "../../common/components/skeletons/text-skeleton";
+
+const ProductSkeleton = () => {
+  return (
+    <BaseLayout>
+      <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 max-w-7xl m-auto md:mt-20">
+        <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px]">
+          <div className="w-[90%] h-[90%]">
+            <SkeletonImage />
+          </div>
+        </div>
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <TextSkeleton />
+            <TextSkeleton />
+            <TextSkeleton />
+          </div>
+          <div className="flex flex-col gap-4">
+            <TextSkeleton />
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
+              <div className="flex items-center justify-between">
+                <TextSkeleton />
+              </div>
+              <div className="text-center">
+                <TextSkeleton />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </BaseLayout>
+  );
+};
 
 const Product: NextPage = () => {
   const { query } = useRouter();
@@ -33,7 +67,7 @@ const Product: NextPage = () => {
     }
   };
 
-  if (productLoading || !data) return <p>Loading</p>;
+  if (!productLoading || !data) return <ProductSkeleton />;
 
   return (
     <BaseLayout>
