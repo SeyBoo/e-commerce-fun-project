@@ -5,7 +5,7 @@ import { useGetAllCategories } from "../../module/category/api/category.api";
 import Link from "next/link";
 
 const Footer: FunctionComponent = () => {
-  const { data, status } = useGetAllCategories();
+  const { data } = useGetAllCategories();
 
   return (
     <footer className="bg-[#272727]">
