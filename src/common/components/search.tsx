@@ -26,7 +26,7 @@ function Search<T>({
 
   const HandleRenderSearchedProducts = () => {
     return (
-      <div className="relative flex flex-col gap-4 z-50 bg-white shadow rounded-md max-w-md max-h-80 overflow-y-scroll">
+      <div className="relative flex flex-col gap-4 z-50 bg-white shadow rounded-md max-w-md max-h-80 overflow-y-scroll overflow-x-hidden">
         {filteredData?.map((item, index) => (
           <FromTheTopAnimation key={index} delay={CalculateAnimationDelay(index)}>
             {renderSearchItem(item)}
