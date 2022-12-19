@@ -67,7 +67,7 @@ const Product: NextPage = () => {
     }
   };
 
-  if (!productLoading || !data) return <ProductSkeleton />;
+  if (productLoading || !data) return <ProductSkeleton />;
 
   return (
     <BaseLayout>
