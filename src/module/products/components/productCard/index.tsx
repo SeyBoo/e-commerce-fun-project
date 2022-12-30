@@ -12,7 +12,11 @@ interface ProductCardProps {
 const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {
   return (
     <div className="shadow-md p-5 rounded-xl flex flex-col gap-3">
-      <Link href={`product/${product.id}`} className="cursor-pointer">
+      <Link
+        href={{ pathname: `/product/${product.id}`}}
+        as={`/product/${product.id}`}
+        className="cursor-pointer"
+      >
         <div className="self-center p-8 flex justify-center">
           <ZoomOnHover>
             <div className="h-[200px] w-[200px] relative">
