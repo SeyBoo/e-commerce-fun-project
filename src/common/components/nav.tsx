@@ -11,6 +11,7 @@ import Logo from "../assets/logo.svg";
 import PopOverPanel, { PanelItem } from "./pop-over-panel";
 import SearchProducts from "../../module/products/components/searchProducts";
 import MenuDropDown from "./animations/menu";
+import { useGetAllProducts } from "../../module/products/api/products.api";
 
 const panelItems: PanelItem[] = [
   {
@@ -36,6 +37,7 @@ const panelItems: PanelItem[] = [
 ];
 
 const Nav: FunctionComponent = () => {
+  const { data: productsData } = useGetAllProducts();
   return (
     <nav className="flex items-center justify-between p-5">
       <div className="flex xl:gap-20 gap-10 items-center">
@@ -110,7 +112,7 @@ const Nav: FunctionComponent = () => {
       />
       <div className="hidden md:flex items-center gap-6 w-max">
         <div className="w-[350px]">
-          <SearchProducts />
+          <SearchProducts data={productsData} />
         </div>
         <Link href="/login" className="flex items-center gap-1 font-medium">
           <Image src={AccountIcon} alt="" width={30} />

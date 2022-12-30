@@ -24,9 +24,11 @@ const renderSearchItem = (value: ProductI) => {
   );
 };
 
-const SearchProducts: FunctionComponent = () => {
-  const { data } = useGetAllProducts();
+interface SearchProductsProps {
+  data: ProductI[] | undefined;
+}
 
+const SearchProducts: FunctionComponent<SearchProductsProps> = ({ data }) => {
   return (
     <Search<ProductI>
       data={data ? data : []}
