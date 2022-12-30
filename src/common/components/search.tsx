@@ -47,7 +47,7 @@ function Search<T>({
 
   return (
     <div
-      className="md:flex md:flex-col h-11 w-full md:m-w-96"
+      className="md:flex md:flex-col h-11 w-full md:m-w-96 max-w-md"
       ref={wrapperRef}
       onSelect={() => setIsInputedSelected(true)}
     >
