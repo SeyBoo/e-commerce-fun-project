@@ -16,22 +16,18 @@ import { useGetAllProducts } from "../../module/products/api/products.api";
 const panelItems: PanelItem[] = [
   {
     name: "Electronics",
-    href: "#",
     image: ElectronicsIcon,
   },
   {
     name: "Jewelery",
-    href: "#",
     image: DiamondIcon,
   },
   {
     name: "Men's clothing",
-    href: "#",
     image: ManIcon,
   },
   {
     name: "Women's clothing",
-    href: "#",
     image: WomanIcon,
   },
 ];

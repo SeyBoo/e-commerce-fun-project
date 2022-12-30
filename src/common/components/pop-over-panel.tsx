@@ -1,22 +1,22 @@
-import { Popover, Transition } from "@headlessui/react";
+import { Popover } from "@headlessui/react";
 import Link from "next/link";
 import Image from "next/image";
-import { Fragment, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import DownIcon from "../assets/expand-down.svg";
 import { StaticImageData } from "next/image";
 import GenericTransition from "./animations/transitions";
 
 export interface PanelItem {
   name: string;
-  href: string;
   image: StaticImageData;
 }
 
-const PanelItem: FunctionComponent<PanelItem> = ({ name, href, image }) => {
+const PanelItem: FunctionComponent<PanelItem> = ({ name, image }) => {
   return (
     <Link
       key={name}
-      href={href}
+      href={{ pathname: `/category/${name}`}}
+      as={`/category/${name}`}
       className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
     >
       <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white">
