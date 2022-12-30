@@ -19,9 +19,9 @@ import SearchProducts from "../../module/products/components/searchProducts";
 import { ProductI } from "../../module/products/types/products.interface";
 
 const CategoryPage: NextPage = () => {
-  const router = useRouter();
-  const id = router.query.id as string;
-  const query = useGetCategory(id);
+  const { query: RouterQuery } = useRouter();
+  const id = RouterQuery.id as string;
+  const query = useGetCategory(id, { enabled: !!id });
 
   return (
     <BaseLayout>

@@ -28,10 +28,14 @@ const getCategory = async (id: string): Promise<ProductI[]> => {
   const data: ProductI[] = await getFromApi(
     CategoryApiRoutes.SINGLE_CATEGORY + id
   );
+
   return data;
 };
 
-export const useGetCategory = (id: string): UseQueryResult<ProductI[]> => {
+export const useGetCategory = (
+  id: string,
+  params?: { enabled: boolean }
+): UseQueryResult<ProductI[]> => {
   const setSnackBar = useSnack();
 
   return useQuery(CategoryApiRoutes.SINGLE_CATEGORY, () => getCategory(id), {
@@ -41,6 +45,7 @@ export const useGetCategory = (id: string): UseQueryResult<ProductI[]> => {
         title: "Error couldn't fetch category.",
       });
     },
+    enabled: params?.enabled,
   });
 };
 
