@@ -15,7 +15,7 @@ const PanelItem: FunctionComponent<PanelItem> = ({ name, image }) => {
   return (
     <Link
       key={name}
-      href={{ pathname: `/category/${name}`}}
+      href={{ pathname: `/category/${name}` }}
       as={`/category/${name}`}
       className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
     >
@@ -54,7 +54,6 @@ const PopOverPanel: FunctionComponent<PopOverProps> = ({
                     <PanelItem
                       key={index}
                       image={item.image}
-                      href={item.href}
                       name={item.name}
                     />
                   ))}
