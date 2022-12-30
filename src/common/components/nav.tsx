@@ -56,7 +56,7 @@ const Nav: FunctionComponent = () => {
           {
             items: [
               {
-                children: <SearchProducts />,
+                children: <SearchProducts data={productsData} />,
               },
               {
                 children: (
