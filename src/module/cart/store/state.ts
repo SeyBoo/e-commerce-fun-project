@@ -1,3 +1,11 @@
-interface CartState {}
+import { ProductCartI } from "../types/cart.interface";
 
-export const initialState: CartState = {};
+interface CartState {
+  products: ProductCartI[] | null;
+  productsCount: number;
+}
+
+export const initialState: CartState = {
+  products: null,
+  productsCount: 0,
+};
