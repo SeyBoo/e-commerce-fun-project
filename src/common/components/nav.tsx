@@ -12,6 +12,7 @@ import PopOverPanel, { PanelItem } from "./pop-over-panel";
 import SearchProducts from "../../module/products/components/searchProducts";
 import MenuDropDown from "./animations/menu";
 import { useGetAllProducts } from "../../module/products/api/products.api";
+import { useAppSelector } from "../hooks/store";
 
 const panelItems: PanelItem[] = [
   {
@@ -34,6 +35,8 @@ const panelItems: PanelItem[] = [
 
 const Nav: FunctionComponent = () => {
   const { data: productsData } = useGetAllProducts();
+  const productsCount = useAppSelector((state) => state.cart.productsCount);
+
   return (
     <nav className="flex items-center justify-between p-5">
       <div className="flex xl:gap-20 gap-10 items-center">
@@ -117,6 +120,7 @@ const Nav: FunctionComponent = () => {
         <Link href="/cart" className="flex items-center gap-1 font-medium">
           <Image src={CartIcon} alt="" width={30} />
           <p className="hidden xl:block">Cart</p>
+          <p>{productsCount}</p>
         </Link>
       </div>
     </nav>

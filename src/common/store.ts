@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import cartSlice from "../module/cart/store/slice";
 
 const store = configureStore({
@@ -6,5 +6,13 @@ const store = configureStore({
     [cartSlice.name]: cartSlice.reducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
 export default store;
