@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { FunctionComponent, useRef, useState } from "react";
 import CalculateAnimationDelay from "../utils/calculateAnimationDelay";
 import useOutsideAlerter from "../utils/useOutsideAlerter";
 import { FromTheTopAnimation } from "./animations/fromTheTopAnimation";
@@ -19,15 +19,15 @@ function Search<T>({
   const [inputedSearch, setInputedSearch] = useState<string>("");
   const [isInputSelected, setIsInputedSelected] = useState<boolean>(false);
 
-  const filteredData = data?.filter((product) => {
-    const val = product[field];
-    return typeof val === "string" && val.includes(inputedSearch);
-  });
+  const SearchedProducts: FunctionComponent = () => {
+    const searchedData = data?.filter((product) => {
+      const val = product[field];
+      return typeof val === "string" && val.includes(inputedSearch);
+    });
 
-  const HandleRenderSearchedProducts = () => {
     return (
       <div className="relative flex flex-col gap-4 z-50 bg-white shadow rounded-md max-w-md max-h-80 overflow-y-scroll overflow-x-hidden">
-        {filteredData?.map((item, index) => (
+        {searchedData?.map((item, index) => (
           <FromTheTopAnimation
             key={index}
             delay={CalculateAnimationDelay(index)}
@@ -39,7 +39,28 @@ function Search<T>({
     );
   };
 
+  const LoopIcon: FunctionComponent = () => {
+    return (
+      <svg
+        aria-hidden="true"
+        className="w-5 h-5 gray-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        ></path>
+      </svg>
+    );
+  };
+
   const wrapperRef = useRef(null);
+
   useOutsideAlerter({
     ref: wrapperRef,
     setSelected: (value: boolean) => setIsInputedSelected(value),
@@ -61,27 +82,11 @@ function Search<T>({
           onChange={(e) => setInputedSearch(e.target.value)}
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          <svg
-            aria-hidden="true"
-            className="w-5 h-5 gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
+          <LoopIcon />
         </div>
       </div>
       <div>
-        {isInputSelected && inputedSearch !== "" ? (
-          <HandleRenderSearchedProducts />
-        ) : null}
+        {isInputSelected && inputedSearch !== "" && <SearchedProducts />}
       </div>
     </div>
   );
