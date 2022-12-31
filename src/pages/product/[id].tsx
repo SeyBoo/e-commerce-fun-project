@@ -18,6 +18,7 @@ import SkeletonImage from "../../common/components/skeletons/skeleton-image";
 import TextSkeleton from "../../common/components/skeletons/text-skeleton";
 import { useAppDispatch } from "../../common/hooks/store";
 import { addToCart } from "../../module/cart/store/thunk";
+import { useSnack } from "../../common/hooks/useSnackBar";
 
 const ProductSkeleton = () => {
   return (
@@ -58,6 +59,7 @@ const Product: NextPage = () => {
   const dispatch = useAppDispatch();
 
   const { data, status } = useGetProduct(productId, { enabled: !!productId });
+  const setSnackBar = useSnack();
 
   const productLoading = useMemo(
     () => status === "loading" || status === "idle",
@@ -70,7 +72,10 @@ const Product: NextPage = () => {
     try {
       await dispatch(addToCart({ product: data }));
     } catch (e) {
-      console.log(e);
+      setSnackBar({
+        title: "Couldn't add item to card.",
+        type: "error",
+      });
     }
   };
 

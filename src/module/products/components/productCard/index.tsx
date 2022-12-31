@@ -6,6 +6,7 @@ import Rating from "../rating";
 import { ZoomOnHover } from "../../../../common/components/animations/zoomInAnimation";
 import { useAppDispatch } from "../../../../common/hooks/store";
 import { addToCart } from "../../../cart/store/thunk";
+import { useSnack } from "../../../../common/hooks/useSnackBar";
 
 interface ProductCardProps {
   product: ProductI;
@@ -13,12 +14,16 @@ interface ProductCardProps {
 
 const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {
   const dispatch = useAppDispatch();
+  const setSnackBar = useSnack();
 
   const handleAddToCart = async () => {
     try {
       await dispatch(addToCart({ product }));
     } catch (e) {
-      console.log(e);
+      setSnackBar({
+        title: "Couldn't add item to card.",
+        type: "error",
+      });
     }
   };
 
