@@ -16,6 +16,8 @@ import {
 } from "../../module/products/api/products.api";
 import SkeletonImage from "../../common/components/skeletons/skeleton-image";
 import TextSkeleton from "../../common/components/skeletons/text-skeleton";
+import { useAppDispatch } from "../../common/hooks/store";
+import { addToCart } from "../../module/cart/store/thunk";
 
 const ProductSkeleton = () => {
   return (
@@ -53,6 +55,7 @@ const Product: NextPage = () => {
   const { query } = useRouter();
   const productId = query.id as string;
   const [itemNumber, setItemNumber] = useState<number>(1);
+  const dispatch = useAppDispatch();
 
   const { data, status } = useGetProduct(productId, { enabled: !!productId });
 
@@ -61,13 +64,21 @@ const Product: NextPage = () => {
     [status]
   );
 
+  if (productLoading || !data) return <ProductSkeleton />;
+
+  const handleAddToCart = async () => {
+    try {
+      await dispatch(addToCart({ product: data }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleDecrementItemNumber = () => {
     if (itemNumber > 1) {
       setItemNumber(itemNumber - 1);
     }
   };
-
-  if (productLoading || !data) return <ProductSkeleton />;
 
   return (
     <BaseLayout>
@@ -108,7 +119,10 @@ const Product: NextPage = () => {
                 </button>
               </div>
               <div className="text-center">
-                <button className="bg-[#2D472B] text-white font-bold w-full p-3 rounded-lg">
+                <button
+                  className="bg-[#2D472B] text-white font-bold w-full p-3 rounded-lg"
+                  onClick={() => handleAddToCart()}
+                >
                   Add to cart
                 </button>
               </div>

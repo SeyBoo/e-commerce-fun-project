@@ -4,16 +4,28 @@ import { ProductI } from "../../types/products.interface";
 import Link from "next/link";
 import Ratings from "../ratings";
 import { ZoomOnHover } from "../../../../common/components/animations/zoomInAnimation";
+import { useAppDispatch } from "../../../../common/hooks/store";
+import { addToCart } from "../../../cart/store/thunk";
 
 interface ProductCardProps {
   product: ProductI;
 }
 
 const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = async () => {
+    try {
+      await dispatch(addToCart({ product }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="shadow-md p-5 rounded-xl flex flex-col gap-3">
       <Link
-        href={{ pathname: `/product/${product.id}`}}
+        href={{ pathname: `/product/${product.id}` }}
         as={`/product/${product.id}`}
         className="cursor-pointer"
       >
@@ -41,7 +53,10 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {
       </div>
       <Ratings ratings={product.rating} />
 
-      <button className="border border-black rounded-full px-4 py-2 text-black font-medium self-start hover:text-white hover:bg-black">
+      <button
+        className="border border-black rounded-full px-4 py-2 text-black font-medium self-start hover:text-white hover:bg-black"
+        onClick={() => handleAddToCart()}
+      >
         Add to cart
       </button>
     </div>
