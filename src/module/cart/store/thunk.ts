@@ -29,7 +29,13 @@ export const addToCart =
     } else {
       await dispatch(
         updateProductCount({
-          product: { ...formatedProduct, count: products[0].count + 1 },
+          product: {
+            ...formatedProduct,
+            count: quantity
+              ? products[0].count + quantity
+              : products[0].count + 1,
+          },
+          quantity
         })
       );
     }

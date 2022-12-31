@@ -8,6 +8,7 @@ interface AddItemToProductPayload {
 
 interface UpdateProductCountPayload {
   product: ProductCartI;
+  quantity?: number;
 }
 
 interface DeleteProductPayload {
@@ -44,7 +45,11 @@ const cartSlice = createSlice({
         action.payload.product,
       ];
 
-      state.productsCount = state.productsCount + 1;
+      const numberOfAddedItems = action.payload.quantity
+        ? action.payload.quantity
+        : 1;
+
+      state.productsCount = state.productsCount + numberOfAddedItems;
     },
     deleteProduct: (state, action: PayloadAction<DeleteProductPayload>) => {
       if (!state.products) return;
