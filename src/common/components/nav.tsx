@@ -122,15 +122,14 @@ const Nav: FunctionComponent = () => {
           <Image src={AccountIcon} alt="" width={30} />
           <p className="hidden xl:block">Account</p>
         </Link>
-        <Link
-          href="/cart"
-          className="inline-flex relative items-center p-1.5 text-sm font-medium text-center text-white rounded-lg"
-        >
-          <Image src={CartIcon} alt="cart-icon" width={30} />
-          <p className="hidden xl:block">Cart</p>
-          <div className="inline-flex absolute -top-1 -right-1 justify-center items-center w-5 h-5 text-xs font-bold text-white bg-green-700 rounded-full">
-            {productsCount}
+        <Link href="/cart" className="flex items-center gap-1 font-medium">
+          <div className="inline-flex relative items-center p-1 text-sm font-medium text-center text-white rounded-lg">
+            <Image src={CartIcon} alt="cart-icon" width={30} />
+            <div className="inline-flex absolute -top-1 -right-1 justify-center items-center w-5 h-5 text-xs font-bold text-white bg-green-700 rounded-full">
+              {productsCount}
+            </div>
           </div>
+          <p className="hidden xl:block">Account</p>
         </Link>
       </div>
     </nav>
