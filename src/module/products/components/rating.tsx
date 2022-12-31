@@ -1,9 +1,5 @@
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { FunctionComponent } from "react";
 import { RatingI } from "../types/products.interface";
-
-interface RatingsProps {
-  ratings: RatingI;
-}
 
 const NotFullStar = () => {
   return (
@@ -25,46 +21,59 @@ const FullStar = () => {
     </svg>
   );
 };
+interface StarListProps {
+  rating: RatingI;
+}
 
-const Ratings: FunctionComponent<RatingsProps> = ({ ratings: rating }) => {
-  const StarsList = () => {
-    const generatedRatingsArray = () => {
-      interface FormatedRatingsI {
-        full: boolean;
-      }
+const StarsList: FunctionComponent<StarListProps> = ({ rating }) => {
+  const generatedRatingsArray = () => {
+    interface FormatedRatingI {
+      full: boolean;
+    }
+    const formatedRating: FormatedRatingI[] = [];
 
-      const ratings: FormatedRatingsI[] = [];
-
+    const calculateNumberOfStar = () => {
       for (let i = 0; i < rating.rate; i++) {
-        ratings.push({
+        formatedRating.push({
           full: true,
         });
       }
+    };
 
-      while (ratings.length !== 5) {
-        ratings.push({
+    const calculateNumberOfMissingStar = () => {
+      while (formatedRating.length !== 5) {
+        formatedRating.push({
           full: false,
         });
       }
-
-      return ratings;
     };
 
-    return (
-      <div className="flex">
-        {generatedRatingsArray().map((star, index) =>
-          star.full ? <FullStar key={index} /> : <NotFullStar key={index} />
-        )}
-      </div>
-    );
+    calculateNumberOfStar();
+    calculateNumberOfMissingStar();
+
+    return formatedRating;
   };
 
   return (
+    <div className="flex">
+      {generatedRatingsArray().map((star, index) =>
+        star.full ? <FullStar key={index} /> : <NotFullStar key={index} />
+      )}
+    </div>
+  );
+};
+
+interface RatingsProps {
+  rating: RatingI;
+}
+
+const Rating: FunctionComponent<RatingsProps> = ({ rating }) => {
+  return (
     <div className="flex gap-2">
-      <StarsList />
+      <StarsList rating={rating} />
       <p className="text-slate-500">({rating.count})</p>
     </div>
   );
 };
 
-export default Ratings;
+export default Rating;

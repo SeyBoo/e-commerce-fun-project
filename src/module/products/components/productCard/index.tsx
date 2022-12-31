@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import Image from "next/image";
 import { ProductI } from "../../types/products.interface";
 import Link from "next/link";
-import Ratings from "../ratings";
+import Rating from "../rating";
 import { ZoomOnHover } from "../../../../common/components/animations/zoomInAnimation";
 import { useAppDispatch } from "../../../../common/hooks/store";
 import { addToCart } from "../../../cart/store/thunk";
@@ -51,8 +51,7 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({ product }) => {
           <p>{product.price}</p>
         </span>
       </div>
-      <Ratings ratings={product.rating} />
-
+      <Rating rating={product.rating} />
       <button
         className="border border-black rounded-full px-4 py-2 text-black font-medium self-start hover:text-white hover:bg-black"
         onClick={() => handleAddToCart()}
