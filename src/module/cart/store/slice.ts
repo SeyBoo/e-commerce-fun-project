@@ -10,6 +10,10 @@ interface UpdateProductCountPayload {
   product: ProductCartI;
 }
 
+interface DeleteProductPayload {
+  product: ProductCartI;
+}
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -18,9 +22,11 @@ const cartSlice = createSlice({
       state,
       action: PayloadAction<AddItemToProductPayload>
     ) => {
-      if (!state.products) state.products = [action.payload.product];
-
-      state.products = [...state.products, action.payload.product];
+      if (!state.products) {
+        state.products = [action.payload.product];
+      } else {
+        state.products = [...state.products, action.payload.product];
+      }
       state.productsCount = state.productsCount + 1;
     },
     updateProductCount: (
@@ -40,9 +46,21 @@ const cartSlice = createSlice({
 
       state.productsCount = state.productsCount + 1;
     },
+    deleteProduct: (state, action: PayloadAction<DeleteProductPayload>) => {
+      if (!state.products) return;
+
+      const productsWithoutSelectedProduct = state.products.filter(
+        (product) => product.id !== action.payload.product.id
+      );
+
+      state.products = [...productsWithoutSelectedProduct];
+
+      state.productsCount = state.productsCount - action.payload.product.count;
+    },
   },
 });
 
-export const { addProductToCart, updateProductCount } = cartSlice.actions;
+export const { addProductToCart, updateProductCount, deleteProduct } =
+  cartSlice.actions;
 
 export default cartSlice;

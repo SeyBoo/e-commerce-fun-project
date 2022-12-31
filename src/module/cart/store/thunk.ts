@@ -1,7 +1,7 @@
 import { AppThunk } from "../../../common/store";
 import { ProductI } from "../../products/types/products.interface";
 import { ProductCartI } from "../types/cart.interface";
-import { addProductToCart, updateProductCount } from "./slice";
+import { addProductToCart, deleteProduct, updateProductCount } from "./slice";
 
 export const addToCart =
   ({ product }: { product: ProductI }): AppThunk =>
@@ -33,4 +33,20 @@ export const addToCart =
         })
       );
     }
+  };
+
+export const deleteFromCart =
+  ({ product }: { product: ProductCartI }): AppThunk =>
+  async (dispatch, getState) => {
+    const products = getState().cart.products?.filter(
+      (filteredProduct) => filteredProduct.id === product.id
+    );
+
+    if (!products) throw new Error();
+
+    await dispatch(
+      deleteProduct({
+        product: { ...product, count: products[0].count },
+      })
+    );
   };
