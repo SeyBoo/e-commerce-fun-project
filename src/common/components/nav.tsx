@@ -129,7 +129,7 @@ const Nav: FunctionComponent = () => {
               {productsCount}
             </div>
           </div>
-          <p className="hidden xl:block">Account</p>
+          <p className="hidden xl:block">Cart</p>
         </Link>
       </div>
     </nav>
