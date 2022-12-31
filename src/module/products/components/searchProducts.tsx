@@ -1,12 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FunctionComponent } from "react";
-import { useGetAllProducts } from "../api/products.api";
 import Search from "../../../common/components/search";
 import { ProductI } from "../types/products.interface";
 import { ZoomOnHover } from "../../../common/components/animations/zoomInAnimation";
 
-const renderSearchItem = (value: ProductI) => {
+const SearchItem = (value: ProductI) => {
   return (
     <ZoomOnHover>
       <Link
@@ -33,7 +32,7 @@ const SearchProducts: FunctionComponent<SearchProductsProps> = ({ data }) => {
     <Search<ProductI>
       data={data ? data : []}
       placeholder="Search Products..."
-      renderSearchItem={(value: ProductI) => renderSearchItem(value)}
+      renderSearchItem={(value: ProductI) => SearchItem(value)}
       field="title"
     />
   );
