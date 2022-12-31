@@ -6,6 +6,10 @@ interface AddItemToProductPayload {
   product: ProductCartI;
 }
 
+interface UpdateProductCountPayload {
+  product: ProductCartI;
+}
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -19,9 +23,26 @@ const cartSlice = createSlice({
       state.products = [...state.products, action.payload.product];
       state.productsCount = state.productsCount + 1;
     },
+    updateProductCount: (
+      state,
+      action: PayloadAction<UpdateProductCountPayload>
+    ) => {
+      if (!state.products) return;
+
+      const productsWithoutSelectedProduct = state.products.filter(
+        (product) => product.id !== action.payload.product.id
+      );
+
+      state.products = [
+        ...productsWithoutSelectedProduct,
+        action.payload.product,
+      ];
+
+      state.productsCount = state.productsCount + 1;
+    },
   },
 });
 
-export const { addProductToCart } = cartSlice.actions;
+export const { addProductToCart, updateProductCount } = cartSlice.actions;
 
 export default cartSlice;
