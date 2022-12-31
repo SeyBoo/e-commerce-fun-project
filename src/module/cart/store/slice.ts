@@ -27,7 +27,7 @@ const cartSlice = createSlice({
       } else {
         state.products = [...state.products, action.payload.product];
       }
-      state.productsCount = state.productsCount + 1;
+      state.productsCount = state.productsCount + action.payload.product.count;
     },
     updateProductCount: (
       state,

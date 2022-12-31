@@ -4,7 +4,7 @@ import { ProductCartI } from "../types/cart.interface";
 import { addProductToCart, deleteProduct, updateProductCount } from "./slice";
 
 export const addToCart =
-  ({ product }: { product: ProductI }): AppThunk =>
+  ({ product, quantity }: { product: ProductI; quantity?: number }): AppThunk =>
   async (dispatch, getState) => {
     const products = getState().cart.products?.filter(
       (filteredProduct) => filteredProduct.id === product.id
@@ -16,7 +16,7 @@ export const addToCart =
       id: product.id,
       image: product.image,
       price: product.price,
-      count: 1,
+      count: quantity ? quantity : 1,
       title: product.title,
     };
 

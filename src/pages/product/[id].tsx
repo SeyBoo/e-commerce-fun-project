@@ -63,12 +63,13 @@ const Product: NextPage = () => {
     () => status === "loading" || status === "idle",
     [status]
   );
+  const [itemNumber, setItemNumber] = useState<number>(1);
 
   if (productLoading || !data) return <ProductSkeleton />;
 
   const handleAddToCart = async () => {
     try {
-      await dispatch(addToCart({ product: data }));
+      await dispatch(addToCart({ product: data, quantity: itemNumber }));
     } catch (e) {
       setSnackBar({
         title: "Couldn't add item to card.",
@@ -78,8 +79,6 @@ const Product: NextPage = () => {
   };
 
   const QuantityInput: FunctionComponent = () => {
-    const [itemNumber, setItemNumber] = useState<number>(1);
-
     const handleDecrementItemNumber = () => {
       if (itemNumber > 1) {
         setItemNumber(itemNumber - 1);
