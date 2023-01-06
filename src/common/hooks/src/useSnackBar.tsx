@@ -78,7 +78,7 @@ const ErrorComponent: FunctionComponent<ComponentProps> = ({
   );
 };
 
-const SnackBarProvider: FunctionComponent<PropsWithChildren> = ({
+export const SnackBarProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
   const [component, setComponent] = useState<React.ReactNode | null>(null);
@@ -125,5 +125,3 @@ export const useSnack = (): (({
 
   return context.useSnack;
 };
-
-export default SnackBarProvider;

@@ -1,10 +1,10 @@
-import "../common/styles/globals.css";
+import "@common/styles/globals.css";
 import type { AppProps } from "next/app";
 import { QueryClientProvider } from "react-query";
-import { queryClient } from "../common/api/src/config";
+import { queryClient } from "@common/api";
 import { Provider } from "react-redux";
-import store from "../common/store";
-import SnackBarProvider from "../common/hooks/src/useSnackBar";
+import store from "@common/store";
+import { SnackBarProvider } from "@common/hooks";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
