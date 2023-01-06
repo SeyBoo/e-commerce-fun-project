@@ -13,7 +13,7 @@ import { useSnack } from "../../common/hooks";
 import { useAppDispatch } from "../../common/hooks/src/store";
 import { addToCart } from "../../module/cart";
 import {
-  getProductPaths,
+  getProductsPaths,
   prefetchProduct,
   useGetProduct,
 } from "../../module/products";
@@ -145,7 +145,7 @@ const Product: NextPage = () => {
 export default Product;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = await getProductPaths();
+  const paths = await getProductsPaths();
 
   return {
     paths,

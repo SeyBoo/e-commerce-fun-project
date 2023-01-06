@@ -45,7 +45,7 @@ export const useGetProduct = (
   });
 };
 
-export const getProductPaths = async () => {
+export const getProductsPaths = async () => {
   const productBackend = await getProductBackend();
   const data = await productBackend.getProductsPaths();
 
