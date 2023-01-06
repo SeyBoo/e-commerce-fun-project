@@ -3,13 +3,14 @@ import { getFromApi } from "@common/api";
 import { useSnack } from "@common/hooks";
 import { ProductI } from "@module/products";
 import { ProductsApiRoutes } from "./products.enum";
+import { getProductBackend } from "./backends";
 
 export const useGetAllProducts = (): UseQueryResult<ProductI[]> => {
   const setSnackBar = useSnack();
 
   const getAllProducts = async (): Promise<ProductI[]> => {
-    const data: ProductI[] = await getFromApi(ProductsApiRoutes.ALL_PRODUCTS);
-    return data;
+    const productBackend = await getProductBackend();
+    return await productBackend.getAllProducts();
   };
 
   return useQuery([ProductsApiRoutes.ALL_PRODUCTS], getAllProducts, {
@@ -23,10 +24,8 @@ export const useGetAllProducts = (): UseQueryResult<ProductI[]> => {
 };
 
 export const getProduct = async (id: string): Promise<ProductI> => {
-  const data: ProductI = await getFromApi(
-    ProductsApiRoutes.SINGLE_PRODUCT + id
-  );
-  return data;
+  const productBackend = await getProductBackend();
+  return await productBackend.getProduct(id);
 };
 
 export const useGetProduct = (
@@ -47,9 +46,8 @@ export const useGetProduct = (
 };
 
 export const getProductPaths = async () => {
-  const data: ProductI[] = await getFromApi(ProductsApiRoutes.ALL_PRODUCTS, {
-    "Accept-Encoding": "gzip,deflate,compress",
-  });
+  const productBackend = await getProductBackend();
+  const data = await productBackend.getProductsPaths();
 
   return data.map((product) => ({
     params: { id: JSON.stringify(product.id) },
