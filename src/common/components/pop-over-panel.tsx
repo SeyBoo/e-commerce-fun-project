@@ -12,19 +12,26 @@ export interface PanelItem {
 }
 
 const PanelItem: FunctionComponent<PanelItem> = ({ name, image }) => {
+  const defaultStyle =
+    "-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50";
+
+  const DefaultContent = () => (
+    <>
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white gap-4">
+        <Image src={image} alt={`${name} icon`} />
+      </div>
+      <p className="text-sm font-medium text-gray-900">{name}</p>
+    </>
+  );
+
   return (
     <Link
       key={name}
       href={{ pathname: `/category/${name}` }}
       as={`/category/${name}`}
-      className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+      className={defaultStyle}
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white">
-        <Image src={image} alt={`${name} icon`} />
-      </div>
-      <div className="ml-4">
-        <p className="text-sm font-medium text-gray-900">{name}</p>
-      </div>
+      <DefaultContent />
     </Link>
   );
 };
@@ -32,32 +39,32 @@ const PanelItem: FunctionComponent<PanelItem> = ({ name, image }) => {
 interface PopOverProps {
   triggerButton: React.ReactNode;
   panelItems: PanelItem[];
+  showDropDownIcon?: boolean;
 }
 
 const PopOverPanel: FunctionComponent<PopOverProps> = ({
   triggerButton,
   panelItems,
+  showDropDownIcon = false,
 }) => {
   return (
-    <Popover className="relative">
+    <Popover>
       {() => (
         <>
           <Popover.Button className="flex items-center">
             {triggerButton}
-            <Image src={DownIcon} alt="" width={20} />
+            {showDropDownIcon && <Image src={DownIcon} alt="" width={20} />}
           </Popover.Button>
           <GenericTransition>
-            <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 lg:max-w-3xl">
-              <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="relative grid gap-8 bg-gray-50 p-7 lg:grid-cols-2">
-                  {panelItems.map((item, index) => (
-                    <PanelItem
-                      key={index}
-                      image={item.image}
-                      name={item.name}
-                    />
-                  ))}
-                </div>
+            <Popover.Panel className="absolute z-10">
+              <div className="grid grid-cols-1 gap-4 p-4 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white">
+                {panelItems.map((item, index) => (
+                  <PanelItem
+                    key={index}
+                    image={item.image}
+                    name={item.name}
+                  />
+                ))}
               </div>
             </Popover.Panel>
           </GenericTransition>
