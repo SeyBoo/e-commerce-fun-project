@@ -12,8 +12,11 @@ const authSlice = createSlice({
     setToken(state, action: PayloadAction<SetTokenPayload>) {
       state.access_token = action.payload.access_token;
     },
+    resetToken(state) {
+      state.access_token = null;
+    },
   },
 });
 
-export const { setToken } = authSlice.actions;
+export const { setToken, resetToken } = authSlice.actions;
 export default authSlice;

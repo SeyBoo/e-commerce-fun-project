@@ -7,12 +7,15 @@ import ManIcon from "../assets/man.svg";
 import WomanIcon from "../assets/woman.svg";
 import AccountIcon from "../assets/account.svg";
 import CartIcon from "../assets/cart.svg";
+import LogOutIcon from "../assets/logout.svg";
 import Logo from "../assets/logo.svg";
 import PopOverPanel, { PanelItem } from "./pop-over-panel";
 import SearchProducts from "../../module/products/components/searchProducts";
 import MenuDropDown from "./animations/menu";
 import { useGetAllProducts } from "../../module/products/api/products.api";
-import { useAppSelector } from "../hooks/store";
+import { useAppDispatch, useAppSelector } from "../hooks/store";
+import { useSnack } from "../hooks/useSnackBar";
+import { resetToken } from "../../module/auth/store/slice";
 
 const categoriesPanel: PanelItem[] = [
   {
@@ -35,8 +38,21 @@ const categoriesPanel: PanelItem[] = [
 
 const Nav: FunctionComponent = () => {
   const { data: productsData } = useGetAllProducts();
+  const isLoggedIn = useAppSelector((state) => state.auth.access_token);
   const productsCount = useAppSelector((state) => state.cart.productsCount);
+  const dispatch = useAppDispatch();
+  const setSnackBar = useSnack();
 
+  const handleSignOut = async () => {
+    try {
+      await dispatch(resetToken());
+    } catch (e) {
+      setSnackBar({
+        title: "Coudln't log you out.",
+        type: "error",
+      });
+    }
+  };
 
   const renderSignInButton = () => {
     const DefaultContent = () => (
@@ -46,7 +62,18 @@ const Nav: FunctionComponent = () => {
       </>
     );
 
-    return (
+    return isLoggedIn ? (
+      <PopOverPanel
+        triggerButton={<DefaultContent />}
+        panelItems={[
+          {
+            image: LogOutIcon,
+            name: "Log out",
+            f: handleSignOut,
+          },
+        ]}
+      />
+    ) : (
       <Link href="/auth/signin" className="flex items-center gap-1 font-medium">
         <DefaultContent />
       </Link>

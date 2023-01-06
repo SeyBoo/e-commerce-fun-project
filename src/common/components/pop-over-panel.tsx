@@ -9,9 +9,10 @@ import GenericTransition from "./animations/transitions";
 export interface PanelItem {
   name: string;
   image: StaticImageData;
+  f?: () => void;
 }
 
-const PanelItem: FunctionComponent<PanelItem> = ({ name, image }) => {
+const PanelItem: FunctionComponent<PanelItem> = ({ name, image, f }) => {
   const defaultStyle =
     "-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50";
 
@@ -23,6 +24,14 @@ const PanelItem: FunctionComponent<PanelItem> = ({ name, image }) => {
       <p className="text-sm font-medium text-gray-900">{name}</p>
     </>
   );
+
+  if (f) {
+    return (
+      <button className={defaultStyle} onClick={() => f()}>
+        <DefaultContent />
+      </button>
+    );
+  }
 
   return (
     <Link
@@ -62,6 +71,7 @@ const PopOverPanel: FunctionComponent<PopOverProps> = ({
                   <PanelItem
                     key={index}
                     image={item.image}
+                    f={item.f}
                     name={item.name}
                   />
                 ))}
