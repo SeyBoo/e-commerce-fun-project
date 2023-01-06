@@ -21,13 +21,13 @@ export const getFromApi = async (
   return data;
 };
 
-export const postFromApi = async (
+export async function postFromApi<T>(
   url: string,
-  body: Record<any, any>,
+  body: T,
   params?: Record<string, string>
-) => {
+) {
   const { data } = await axiosInstance.post(url, body, {
     headers: params ? params : {},
   });
   return data;
-};
+}

@@ -16,7 +16,7 @@ export const useSignIn = (): UseMutationResult<
   const dispatch = useAppDispatch();
 
   const postUserPayload = async (body: SignInProps) => {
-    const data: PostUserPayloadResponse = await postFromApi(
+    const data: PostUserPayloadResponse = await postFromApi<SignInProps>(
       AuthApiRoutes.SIGN_IN,
       { ...body }
     );
