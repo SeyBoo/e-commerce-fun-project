@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
 import { useMutation, UseMutationResult } from "react-query";
-import { postFromApi } from "@common/api";
 import { useAppDispatch, useSnack } from "@common/hooks";
 import { PostUserPayloadResponse, SignInProps, setToken } from "@module/auth";
-import { AuthApiRoutes } from "./auth.enum";
+import { getAuthBackend } from "./backends";
 
 export const useSignIn = (): UseMutationResult<
   PostUserPayloadResponse,
@@ -15,15 +14,14 @@ export const useSignIn = (): UseMutationResult<
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const postUserPayload = async (body: SignInProps) => {
-    const data: PostUserPayloadResponse = await postFromApi<SignInProps>(
-      AuthApiRoutes.SIGN_IN,
-      { ...body }
-    );
-    return data;
+  const signInUser = async (
+    crendentials: SignInProps
+  ): Promise<PostUserPayloadResponse> => {
+    const authBackend = await getAuthBackend();
+    return authBackend.signIn(crendentials);
   };
 
-  return useMutation((body: SignInProps) => postUserPayload(body), {
+  return useMutation((crendentials: SignInProps) => signInUser(crendentials), {
     onSuccess(data: PostUserPayloadResponse) {
       dispatch(setToken({ access_token: data.token }));
       router.push("/cart");
