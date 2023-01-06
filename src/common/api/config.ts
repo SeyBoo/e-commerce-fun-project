@@ -20,3 +20,14 @@ export const getFromApi = async (
   });
   return data;
 };
+
+export const postFromApi = async (
+  url: string,
+  body: Record<any, any>,
+  params?: Record<string, string>
+) => {
+  const { data } = await axiosInstance.post(url, body, {
+    headers: params ? params : {},
+  });
+  return data;
+};
