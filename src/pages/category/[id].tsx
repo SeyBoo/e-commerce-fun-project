@@ -6,17 +6,18 @@ import {
 } from "next";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient } from "react-query";
-import GridInfiteQuery from "../../common/components/grid-infite-query";
-import BaseLayout from "../../common/components/layouts/baseLayout";
+import { BaseLayout, GridInfiteQuery } from "@common/components";
 import {
   getAllCategories,
   prefetchCategory,
   useGetCategory,
-} from "../../module/category/api/category.api";
-import ProductCard from "../../module/products/components/productCard";
-import ProductCardSkeleton from "../../module/products/components/productCard/skeleton";
-import SearchProducts from "../../module/products/components/searchProducts";
-import { ProductI } from "../../module/products/types/products.interface";
+} from "@module/category";
+import {
+  ProductCard,
+  ProductI,
+  ProductCardSkeleton,
+  SearchProducts,
+} from "@module/products";
 
 const CategoryPage: NextPage = () => {
   const { query: RouterQuery } = useRouter();

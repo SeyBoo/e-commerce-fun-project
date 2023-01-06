@@ -1,12 +1,11 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { useCustomForm } from "../../common/hooks/useCustomForm";
 import Image from "next/image";
-import Logo from "../../common/assets/logo.svg";
-import { useSnack } from "../../common/hooks/useSnackBar";
-import { SignInProps } from "../../module/auth/types/auth.interface";
-import { useSignIn } from "../../module/auth/api/auth.api";
+import Logo from "@common/assets/logo.svg";
+import { useSignIn } from "@module/auth";
 import { FormEvent } from "react";
+import { useCustomForm, useSnack } from "@common/hooks";
+import { SignInProps } from "@module/auth";
 
 const SignIn: NextPage = () => {
   const setSnackBar = useSnack();

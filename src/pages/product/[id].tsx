@@ -8,17 +8,15 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { FunctionComponent, useMemo, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
-import BaseLayout from "../../common/components/layouts/baseLayout";
+import { SkeletonImage, BaseLayout, TextSkeleton } from "@common/components";
+import { useSnack } from "../../common/hooks";
+import { useAppDispatch } from "../../common/hooks/src/store";
+import { addToCart } from "../../module/cart";
 import {
   getProductPaths,
   prefetchProduct,
   useGetProduct,
-} from "../../module/products/api/products.api";
-import SkeletonImage from "../../common/components/skeletons/skeleton-image";
-import TextSkeleton from "../../common/components/skeletons/text-skeleton";
-import { useAppDispatch } from "../../common/hooks/store";
-import { addToCart } from "../../module/cart/store/thunk";
-import { useSnack } from "../../common/hooks/useSnackBar";
+} from "../../module/products";
 
 const ProductSkeleton = () => {
   return (
