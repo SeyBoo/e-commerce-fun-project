@@ -1,14 +1,12 @@
 import { CategoryApiRoutes } from "./category.enum";
 import { QueryClient, useQuery, UseQueryResult } from "react-query";
-import { getFromApi } from "@common/api";
 import { ProductI } from "@module/products";
 import { useSnack } from "@common/hooks";
+import { getCategoryBackend } from "./backends";
 
 export const getAllCategories = async (): Promise<string[]> => {
-  const data: string[] = await getFromApi(CategoryApiRoutes.ALL_CATEGORY, {
-    "Accept-Encoding": "gzip,deflate,compress",
-  });
-  return data;
+  const categoryBackend = await getCategoryBackend();
+  return await categoryBackend.getAllCategory();
 };
 
 export const useGetAllCategories = (): UseQueryResult<string[]> => {
@@ -25,11 +23,8 @@ export const useGetAllCategories = (): UseQueryResult<string[]> => {
 };
 
 const getCategory = async (id: string): Promise<ProductI[]> => {
-  const data: ProductI[] = await getFromApi(
-    CategoryApiRoutes.SINGLE_CATEGORY + id
-  );
-
-  return data;
+  const categoryBackend = await getCategoryBackend();
+  return await categoryBackend.getCategory(id);
 };
 
 export const useGetCategory = (
