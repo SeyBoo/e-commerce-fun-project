@@ -7,7 +7,7 @@ import { AuthApiRoutes } from "./auth.enum";
 
 export const useSignIn = (): UseMutationResult<
   PostUserPayloadResponse,
-  unknown,
+  Error,
   SignInProps,
   unknown
 > => {
