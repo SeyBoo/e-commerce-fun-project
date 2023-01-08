@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 import { Search, ZoomOnHover } from "@common/components";
 import { ProductI } from "../../types";
 
-const SearchItem = (value: ProductI) => {
+const SearchProductItem = (value: ProductI) => {
   return (
     <ZoomOnHover>
       <Link
@@ -33,7 +33,7 @@ export const SearchProducts: FunctionComponent<SearchProductsProps> = ({
     <Search<ProductI>
       data={data ? data : []}
       placeholder="Search Products..."
-      renderSearchItem={(value: ProductI) => SearchItem(value)}
+      renderSearchItem={(value: ProductI) => SearchProductItem(value)}
       field="title"
     />
   );

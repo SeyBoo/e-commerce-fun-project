@@ -20,7 +20,7 @@ export const ProductCart: FunctionComponent<ProductCartProps> = ({
       await dispatch(deleteFromCart({ product }));
     } catch (e) {
       setSnackBar({
-        title: "Coudl'nt delete product",
+        title: "Coudln't delete product",
         type: "error",
       });
     }
