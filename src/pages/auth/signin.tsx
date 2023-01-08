@@ -4,11 +4,10 @@ import Image from "next/image";
 import Logo from "@common/assets/logo.svg";
 import { useSignIn } from "@module/auth";
 import { FormEvent } from "react";
-import { useCustomForm, useSnack } from "@common/hooks";
+import { useCustomForm } from "@common/hooks";
 import { SignInProps } from "@module/auth";
 
 const SignIn: NextPage = () => {
-  const setSnackBar = useSnack();
   const { mutate } = useSignIn();
 
   const [formValues, handleChange] = useCustomForm<SignInProps>({
@@ -16,15 +15,8 @@ const SignIn: NextPage = () => {
     password: "83r5^_",
   });
 
-  const handleSignIn = async () => {
-    try {
-      mutate({ password: formValues.password, username: formValues.username });
-    } catch (e) {
-      setSnackBar({
-        title: "Couldn't connect you.",
-        type: "error",
-      });
-    }
+  const handleSignIn = () => {
+    mutate({ password: formValues.password, username: formValues.username });
   };
 
   const handleSubmitForm = (e: FormEvent) => {
@@ -37,7 +29,7 @@ const SignIn: NextPage = () => {
   return (
     <div className="flex flex-col items-center gap-12 py-10">
       <Link href="/">
-        <Image src={Logo} alt="" />
+        <Image src={Logo} alt="website-logo" />
       </Link>
       <div className="flex flex-col gap-6 max-w-[350px] w-full">
         <div>
