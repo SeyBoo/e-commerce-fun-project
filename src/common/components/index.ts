@@ -8,3 +8,4 @@ export * from "./src/search";
 export * from "./src/animations";
 export * from "./src/skeletons";
 export * from "./src/layouts";
+export * from "./src/quantityInput";
