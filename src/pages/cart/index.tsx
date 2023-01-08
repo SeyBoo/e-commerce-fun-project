@@ -7,12 +7,12 @@ import Image from "next/image";
 import { BaseLayout } from "@common/components";
 
 const Cart: NextPage = () => {
-  const cartProducts = useAppSelector((state) => state.cart.products);
+  const products = useAppSelector((state) => state.cart.products);
 
-  const ProductsInCart: FunctionComponent = () => {
+  const Products: FunctionComponent = () => {
     return (
       <div className="flex flex-col gap-8">
-        {cartProducts?.map((product, index) => (
+        {products?.map((product, index) => (
           <ProductCart product={product} key={index} />
         ))}
       </div>
@@ -35,7 +35,7 @@ const Cart: NextPage = () => {
 
   return (
     <BaseLayout>
-      {cartProducts ? <ProductsInCart /> : <NoItemInCard />}
+      {products ? <Products /> : <NoItemInCard />}
     </BaseLayout>
   );
 };
