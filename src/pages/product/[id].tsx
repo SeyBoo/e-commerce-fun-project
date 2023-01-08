@@ -8,7 +8,12 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { FunctionComponent, useMemo, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
-import { SkeletonImage, BaseLayout, TextSkeleton } from "@common/components";
+import {
+  SkeletonImage,
+  BaseLayout,
+  TextSkeleton,
+  QuantityInput,
+} from "@common/components";
 import { useSnack, useAppDispatch } from "@common/hooks";
 import { addToCart } from "@module/cart";
 import {
@@ -44,38 +49,6 @@ const Product: NextPage = () => {
     }
   };
 
-  const QuantityInput: FunctionComponent = () => {
-    const handleDecrementItemNumber = () => {
-      if (itemNumber > 1) {
-        setItemNumber(itemNumber - 1);
-      }
-    };
-
-    return (
-      <div className="flex items-center justify-between">
-        <button
-          className="cursor-pointer text-[#2D472B] font-bold text-xl"
-          onClick={() => handleDecrementItemNumber()}
-        >
-          -
-        </button>
-        <input
-          type="number"
-          className="text-center text-[#2D472B] font-bold text-xl w-16"
-          onChange={(e) => setItemNumber(parseFloat(e.target.value))}
-          value={itemNumber}
-          min={1}
-        />
-        <button
-          className="cursor-pointer text-[#2D472B] font-bold text-xl"
-          onClick={() => setItemNumber(itemNumber + 1)}
-        >
-          +
-        </button>
-      </div>
-    );
-  };
-
   return (
     <BaseLayout>
       <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 max-w-7xl m-auto md:mt-20">
@@ -93,7 +66,10 @@ const Product: NextPage = () => {
           <div className="flex flex-col gap-4">
             <h3 className="text-4xl font-bold">${data.price}</h3>
             <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
-              <QuantityInput />
+              <QuantityInput
+                itemNumber={itemNumber}
+                setItemNumber={setItemNumber}
+              />
               <div className="text-center">
                 <button
                   className="bg-[#2D472B] text-white font-bold w-full p-3 rounded-lg"
