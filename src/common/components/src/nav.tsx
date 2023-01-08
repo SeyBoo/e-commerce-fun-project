@@ -55,7 +55,9 @@ export const Nav: FunctionComponent = () => {
   const renderSignInButton = () => {
     const DefaultContent = () => (
       <>
-        <Image src={AccountIcon} alt="account-icon" width={30} />
+        <div className="p-1">
+          <Image src={AccountIcon} alt="account-icon" width={30} />
+        </div>
         <p className="md:hidden xl:block">Account</p>
       </>
     );
