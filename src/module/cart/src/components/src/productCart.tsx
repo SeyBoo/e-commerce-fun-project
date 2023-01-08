@@ -1,9 +1,10 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { deleteFromCart, ProductCartI } from "@module/cart";
 import DeleteIcon from "@common/assets/delete-icon.svg";
 import { useSnack, useAppDispatch } from "@common/hooks";
+import { QuantityInput } from "@common/components";
 
 interface ProductCartProps {
   product: ProductCartI;
@@ -14,6 +15,7 @@ export const ProductCart: FunctionComponent<ProductCartProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const setSnackBar = useSnack();
+  const [itemNumber, setItemNumber] = useState<number>(product.count);
 
   const handleRemoveProduct = async () => {
     try {
@@ -45,6 +47,10 @@ export const ProductCart: FunctionComponent<ProductCartProps> = ({
         </div>
         <div>
           <div className="flex justify-between items-center w-full">
+            <QuantityInput
+              itemNumber={itemNumber}
+              setItemNumber={setItemNumber}
+            />
             <button
               onClick={() => handleRemoveProduct()}
               className="flex items-center gap-1"
