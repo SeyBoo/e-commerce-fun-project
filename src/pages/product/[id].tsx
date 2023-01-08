@@ -148,8 +148,8 @@ const ProductPageSkeleton = () => {
   return (
     <BaseLayout>
       <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 max-w-7xl m-auto md:mt-20">
-        <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px]">
-          <div className="w-[90%] h-[90%]">
+        <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px] m-auto">
+          <div className="w-[95%] h-[95%]">
             <SkeletonImage />
           </div>
         </div>
