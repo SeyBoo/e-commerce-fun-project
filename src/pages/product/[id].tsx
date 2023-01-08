@@ -9,53 +9,21 @@ import { useRouter } from "next/router";
 import { FunctionComponent, useMemo, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import { SkeletonImage, BaseLayout, TextSkeleton } from "@common/components";
-import { useSnack } from "../../common/hooks";
-import { useAppDispatch } from "../../common/hooks/src/store";
-import { addToCart } from "../../module/cart";
+import { useSnack, useAppDispatch } from "@common/hooks";
+import { addToCart } from "@module/cart";
 import {
   getProductsPaths,
   prefetchProduct,
   useGetProduct,
-} from "../../module/products";
-
-const ProductSkeleton = () => {
-  return (
-    <BaseLayout>
-      <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 max-w-7xl m-auto md:mt-20">
-        <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px]">
-          <div className="w-[90%] h-[90%]">
-            <SkeletonImage />
-          </div>
-        </div>
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-4">
-            <TextSkeleton />
-            <TextSkeleton />
-            <TextSkeleton />
-          </div>
-          <div className="flex flex-col gap-4">
-            <TextSkeleton />
-            <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
-              <div className="flex items-center justify-between">
-                <TextSkeleton />
-              </div>
-              <div className="text-center">
-                <TextSkeleton />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </BaseLayout>
-  );
-};
+} from "@module/products";
 
 const Product: NextPage = () => {
   const { query } = useRouter();
-  const productId = query.id as string;
-  const { data, status } = useGetProduct(productId, { enabled: !!productId });
   const dispatch = useAppDispatch();
   const setSnackBar = useSnack();
+
+  const productId = query.id as string;
+  const { data, status } = useGetProduct(productId, { enabled: !!productId });
 
   const productLoading = useMemo(
     () => status === "loading" || status === "idle",
@@ -63,7 +31,7 @@ const Product: NextPage = () => {
   );
   const [itemNumber, setItemNumber] = useState<number>(1);
 
-  if (productLoading || !data) return <ProductSkeleton />;
+  if (productLoading || !data) return <ProductPageSkeleton />;
 
   const handleAddToCart = async () => {
     try {
@@ -174,4 +142,36 @@ export const getStaticProps: GetStaticProps = async (
       notFound: false,
     },
   };
+};
+
+const ProductPageSkeleton = () => {
+  return (
+    <BaseLayout>
+      <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 max-w-7xl m-auto md:mt-20">
+        <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px]">
+          <div className="w-[90%] h-[90%]">
+            <SkeletonImage />
+          </div>
+        </div>
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <TextSkeleton />
+            <TextSkeleton />
+            <TextSkeleton />
+          </div>
+          <div className="flex flex-col gap-4">
+            <TextSkeleton />
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
+              <div className="flex items-center justify-between">
+                <TextSkeleton />
+              </div>
+              <div className="text-center">
+                <TextSkeleton />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </BaseLayout>
+  );
 };
