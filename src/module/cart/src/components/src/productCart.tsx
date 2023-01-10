@@ -41,7 +41,7 @@ export const ProductCart: FunctionComponent<ProductCartProps> = ({
         <div className="flex justify-between items-center">
           <div>
             <p className="text-2xl text-gray-600">{product.title}</p>
-            <p className="text-lg font-light text-gray-300 mt-2">${product.price}</p>
+            <p className="text-lg font-light text-gray-400 mt-2">${product.price}</p>
           </div>
           <p className="text-2xl font-normal">${product.totalPrice}</p>
         </div>

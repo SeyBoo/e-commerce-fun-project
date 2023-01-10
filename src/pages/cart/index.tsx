@@ -11,10 +11,16 @@ const Cart: NextPage = () => {
 
   const Products: FunctionComponent = () => {
     return (
-      <div className="flex flex-col gap-8">
-        {products?.map((product, index) => (
-          <ProductCart product={product} key={index} />
-        ))}
+      <div className="flex flex-col gap-5">
+        <div>
+          <h1 className="text-3xl font-medium">Cart</h1>
+          <div className="bg-gray-200 h-[.5px] my-3"></div>
+        </div>
+        <div className="flex flex-col gap-8">
+          {products?.map((product, index) => (
+            <ProductCart product={product} key={index} />
+          ))}
+        </div>
       </div>
     );
   };
@@ -33,11 +39,7 @@ const Cart: NextPage = () => {
     );
   };
 
-  return (
-    <BaseLayout>
-      {products ? <Products /> : <NoItemInCard />}
-    </BaseLayout>
-  );
+  return <BaseLayout>{products ? <Products /> : <NoItemInCard />}</BaseLayout>;
 };
 
 export default Cart;
