@@ -1,7 +1,7 @@
 import { AppThunk } from "@common/store";
 import { ProductI } from "@module/products";
 import { ProductCartI } from "@module/cart";
-import { addProductToCart, deleteProduct, updateProductCount } from "./slice";
+import { addProductToCart, deleteProduct, updateProductCountAndTotalPrice } from "./slice";
 
 export const addToCart =
   ({ product, quantity }: { product: ProductI; quantity?: number }): AppThunk =>
@@ -18,6 +18,7 @@ export const addToCart =
       price: product.price,
       count: quantity ? quantity : 1,
       title: product.title,
+      totalPrice: product.price * (quantity ? quantity : 1),
     };
 
     if (!isProductAlreadyInCart) {
@@ -28,7 +29,7 @@ export const addToCart =
       );
     } else {
       await dispatch(
-        updateProductCount({
+        updateProductCountAndTotalPrice({
           product: {
             ...formatedProduct,
             count: quantity

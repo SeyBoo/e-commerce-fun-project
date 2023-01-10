@@ -30,7 +30,7 @@ const cartSlice = createSlice({
       }
       state.productsCount = state.productsCount + action.payload.product.count;
     },
-    updateProductCount: (
+    updateProductCountAndTotalPrice: (
       state,
       action: PayloadAction<UpdateProductCountPayload>
     ) => {
@@ -40,14 +40,17 @@ const cartSlice = createSlice({
         (product) => product.id !== action.payload.product.id
       );
 
-      state.products = [
-        ...productsWithoutSelectedProduct,
-        action.payload.product,
-      ];
-
       const numberOfAddedItems = action.payload.quantity
         ? action.payload.quantity
         : 1;
+
+      state.products = [
+        ...productsWithoutSelectedProduct,
+        {
+          ...action.payload.product,
+          totalPrice: action.payload.product.price * numberOfAddedItems,
+        },
+      ];
 
       state.productsCount = state.productsCount + numberOfAddedItems;
     },
@@ -65,7 +68,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProductToCart, updateProductCount, deleteProduct } =
+export const { addProductToCart, updateProductCountAndTotalPrice, deleteProduct } =
   cartSlice.actions;
 
 export default cartSlice;
