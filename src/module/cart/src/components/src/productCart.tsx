@@ -2,7 +2,6 @@ import { FunctionComponent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { deleteFromCart, ProductCartI } from "@module/cart";
-import DeleteIcon from "@common/assets/delete-icon.svg";
 import { useSnack, useAppDispatch } from "@common/hooks";
 import { QuantityInput } from "@common/components";
 
