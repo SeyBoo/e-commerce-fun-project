@@ -5,7 +5,7 @@ interface SetTokenPayload {
   access_token: string;
 }
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -19,4 +19,3 @@ const authSlice = createSlice({
 });
 
 export const { setToken, resetToken } = authSlice.actions;
-export default authSlice;

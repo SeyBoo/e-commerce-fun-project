@@ -15,7 +15,7 @@ interface DeleteProductPayload {
   product: ProductCartI;
 }
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
@@ -71,4 +71,3 @@ const cartSlice = createSlice({
 export const { addProductToCart, updateProductCountAndTotalPrice, deleteProduct } =
   cartSlice.actions;
 
-export default cartSlice;
