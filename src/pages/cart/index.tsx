@@ -14,7 +14,7 @@ const Cart: NextPage = () => {
       <div className="flex flex-col gap-5">
         <div>
           <h1 className="text-3xl font-medium">Cart</h1>
-          <div className="bg-gray-200 h-[.5px] my-3"></div>
+          <div className="bg-gray-200 h-[1px] my-3"></div>
         </div>
         <div className="flex flex-col gap-8">
           {products?.map((product, index) => (
